@@ -921,7 +921,7 @@ def eval_rigid_contacts(
     fn = d * ke
 
     # contact damping
-    fd = wp.min(vn, 0.0) * kd * wp.step(d)
+    fd = wp.min(vn, 0.0) * kd * wp.step(-d)
 
     # viscous friction
     # ft = vt*kf

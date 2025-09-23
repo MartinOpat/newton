@@ -921,7 +921,7 @@ def eval_rigid_contacts(
     fn = d * ke
 
     # contact damping
-    fd = wp.min(vn, 0.0) * kd * wp.step(-d)
+    fd = wp.min(vn, 0.0) * kd * wp.step(-d)  # Added a minus sign here
 
     # viscous friction
     # ft = vt*kf
@@ -936,6 +936,7 @@ def eval_rigid_contacts(
     # ft = wp.vec3(vx, 0.0, vz)
 
     # Coulomb friction (smooth, but gradients are numerically unstable around |vt| = 0)
+    # Which is why we switch to viscous friction -> or not cause discontinous
     ft = wp.vec3(0.0)
     if d < 0.0:
         # use a smooth vector norm to avoid gradient instability at/around zero velocity
@@ -943,6 +944,9 @@ def eval_rigid_contacts(
         if vs > 0.0:
             fr = vt / vs
             ft = fr * wp.min(kf * vs, -mu * (fn + fd))
+    
+        # viscous
+        # ft = kf * vt
 
     f_total = n * (fn + fd) + ft
     # f_total = n * (fn + fd)

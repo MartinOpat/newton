@@ -23,6 +23,7 @@ from ._src.solvers import (
     SolverStyle3D,
     SolverVBD,
     SolverXPBD,
+    SolverMoreau
 )
 
 __all__ = [
@@ -34,6 +35,7 @@ __all__ = [
     "SolverStyle3D",
     "SolverVBD",
     "SolverXPBD",
+    "SolverMoreau"
 ]
 
 # solver flags

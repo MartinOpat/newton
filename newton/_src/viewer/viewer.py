@@ -189,7 +189,6 @@ class ViewerBase:
 
         # Use orange-red color for contact normals
         colors = (0.0, 1.0, 0.0)
-
         self.log_lines("/contacts", starts, ends, colors)
 
     def log_shapes(

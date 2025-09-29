@@ -280,6 +280,11 @@ class ViewerGL(ViewerBase):
             if name in self.lines:
                 self.lines[name].update(None, None, None)
             return
+        
+        # with open("../contacs.txt", "a") as f:
+        #     norms = np.linalg.norm((ends-starts).numpy(), axis=1)
+        #     if len(norms) == 4:
+        #         f.write(f"{norms}\n")
 
         assert isinstance(starts, wp.array)
         assert isinstance(ends, wp.array)

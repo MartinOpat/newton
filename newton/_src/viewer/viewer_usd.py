@@ -306,7 +306,6 @@ class ViewerUSD(ViewerBase):
                 # bring to host
                 starts = starts.numpy()
                 ends = ends.numpy()
-
                 line_positions = []
                 line_rotations = []
                 line_scales = []

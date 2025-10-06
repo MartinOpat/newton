@@ -2114,7 +2114,14 @@ def solve_body_contact_positions(
     n = -contact_normal[tid]
     d = wp.dot(n, bx_b - bx_a) - thickness
 
-    if d >= 0.0:
+    # if d >= 0.0:
+    #     return
+
+    tau = 3.0e-3
+    depth = tau * wp.log(1.0 + wp.exp(-d / tau))   # smooth penetration depth
+    Cn = -depth
+
+    if depth <= 1.0e-9:
         return
 
     m_inv_a = 0.0
@@ -2173,7 +2180,7 @@ def solve_body_contact_positions(
             wp.atomic_add(contact_inv_weight, body_b, 1.0)
 
     lambda_n = compute_contact_constraint_delta(
-        d, X_wb_a, X_wb_b, m_inv_a, m_inv_b, I_inv_a, I_inv_b, -n, n, angular_a, angular_b, relaxation, dt
+        Cn, X_wb_a, X_wb_b, m_inv_a, m_inv_b, I_inv_a, I_inv_b, -n, n, angular_a, angular_b, relaxation, dt
     )
 
     lin_delta_a = -n * lambda_n
